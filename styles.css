@@ -67,6 +67,99 @@ body {
     flex-direction: column;
 }
 
+/* Settings Panel */
+.settings-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.settings-panel.active {
+    display: flex;
+}
+
+.settings-content {
+    background: var(--pure-white);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    max-width: 400px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-gentle);
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-gentle);
+}
+
+.settings-header h3 {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    color: var(--gentle-blue);
+    margin: 0;
+}
+
+.close-settings {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-medium);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.close-settings:hover {
+    background-color: var(--border-gentle);
+    color: var(--text-primary);
+}
+
+.settings-group {
+    margin-bottom: 1.5rem;
+}
+
+.settings-group label {
+    display: block;
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.settings-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-gentle);
+    border-radius: var(--radius-md);
+    background-color: var(--pure-white);
+    color: var(--text-primary);
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.settings-group select:focus {
+    outline: none;
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.2);
+}
+
 /* Desktop Layout Enhancement */
 @media (min-width: 768px) {
     .container {
@@ -121,9 +214,41 @@ body {
 
 /* Header Styles */
 .header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: var(--spacing-lg) 0;
     margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+.header .cross-icon {
+    flex-shrink: 0;
+}
+
+.header .app-title {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+}
+
+.settings-btn {
+    background: none;
+    border: none;
+    color: var(--primary-gold);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.settings-btn:hover {
+    background-color: rgba(184, 134, 11, 0.1);
+    transform: rotate(90deg);
 }
 
 .cross-icon {
