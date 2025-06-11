@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <defs>
+    <radialGradient id="backgroundGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#fdfcf0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f7f3e9;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="crossGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#b8860b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cd853f;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(0,0,0,0.1)"/>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#backgroundGradient)" stroke="#e2d5b7" stroke-width="8" filter="url(#shadow)"/>
+  
+  <!-- Orthodox Cross with three horizontal bars -->
+  <!-- Vertical beam (main shaft) -->
+  <rect x="246" y="80" width="20" height="352" rx="10" fill="url(#crossGradient)" filter="url(#shadow)"/>
+  
+  <!-- Top horizontal bar (shortest - INRI inscription) - reduced by 33% -->
+  <rect x="205" y="120" width="102" height="16" rx="8" fill="url(#crossGradient)" filter="url(#shadow)"/>
+  
+  <!-- Middle horizontal bar (longest - crossbeam where Christ's hands were nailed) - unchanged -->
+  <rect x="140" y="220" width="232" height="20" rx="10" fill="url(#crossGradient)" filter="url(#shadow)"/>
+  
+  <!-- Bottom slanted bar (footrest - tilted because of Christ's suffering) - reduced by 33% -->
+  <rect x="192" y="350" width="128" height="16" rx="8" fill="url(#crossGradient)" filter="url(#shadow)" transform="rotate(-15 256 358)"/>
+  
+  <!-- Decorative elements around the cross -->
+  <!-- Small ornamental crosses in corners -->
+  <g opacity="0.3">
+    <!-- Top left ornament -->
+    <rect x="100" y="100" width="2" height="24" fill="url(#crossGradient)"/>
+    <rect x="90" y="110" width="22" height="2" fill="url(#crossGradient)"/>
+    
+    <!-- Top right ornament -->
+    <rect x="410" y="100" width="2" height="24" fill="url(#crossGradient)"/>
+    <rect x="400" y="110" width="22" height="2" fill="url(#crossGradient)"/>
+    
+    <!-- Bottom left ornament -->
+    <rect x="100" y="388" width="2" height="24" fill="url(#crossGradient)"/>
+    <rect x="90" y="398" width="22" height="2" fill="url(#crossGradient)"/>
+    
+    <!-- Bottom right ornament -->
+    <rect x="410" y="388" width="2" height="24" fill="url(#crossGradient)"/>
+    <rect x="400" y="398" width="22" height="2" fill="url(#crossGradient)"/>
+  </g>
+  
+  <!-- Subtle halo effect around the cross -->
+  <circle cx="256" cy="256" r="120" fill="none" stroke="rgba(212, 175, 55, 0.1)" stroke-width="2"/>
+  <circle cx="256" cy="256" r="140" fill="none" stroke="rgba(212, 175, 55, 0.05)" stroke-width="1"/>
+</svg>
