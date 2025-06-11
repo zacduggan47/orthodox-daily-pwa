@@ -3,10 +3,17 @@ class OrthodoxDailyApp {
     constructor() {
         this.deferredPrompt = null;
         this.prayerCompleted = false;
+        this.fastingCommitted = false;
+        this.currentStreak = 0;
         this.init();
     }
 
     async init() {
+        // Initialize localization first
+        if (typeof initializeLocalization === 'function') {
+            initializeLocalization();
+        }
+        
         // Force cache refresh for new version
         this.forceCacheRefresh();
         
@@ -30,6 +37,9 @@ class OrthodoxDailyApp {
         
         // Initialize homepage features
         this.initializeHomepageFeatures();
+        
+        // Initialize settings panel
+        this.initializeSettings();
     }
 
     // Force cache refresh for updated styles
@@ -105,9 +115,12 @@ class OrthodoxDailyApp {
     // Load Daily Content
     async loadDailyContent() {
         try {
-            await this.loadTodaysSaint();
-            await this.loadDailyQuote();
-            await this.loadFastingGuidelines();
+            // Get appropriate date based on tradition and calendar
+            const currentDate = this.getLocalizedDate();
+            
+            await this.loadTodaysSaint(currentDate);
+            await this.loadDailyQuote(currentDate);
+            await this.loadFastingGuidelines(currentDate);
         } catch (error) {
             console.error('Error loading daily content:', error);
             this.showError('Unable to load daily content. Please check your connection.');
@@ -115,13 +128,12 @@ class OrthodoxDailyApp {
     }
 
     // Load Today's Saint
-    async loadTodaysSaint() {
+    async loadTodaysSaint(currentDate = new Date()) {
         const saintName = document.getElementById('saintName');
         const saintFeast = document.getElementById('saintFeast');
         
         try {
-            const today = new Date();
-            const dateKey = this.formatDateKey(today);
+            const dateKey = this.formatDateKey(currentDate);
             
             // Get saint data from saints.js
             const saintData = this.getSaintForDate(dateKey);
@@ -668,13 +680,100 @@ class OrthodoxDailyApp {
                 e.preventDefault();
                 this.performChatGPTSearch();
             }
+            
+            // ESC to close settings
+            if (e.key === 'Escape') {
+                const settingsPanel = document.getElementById('settingsPanel');
+                if (settingsPanel && settingsPanel.classList.contains('active')) {
+                    toggleSettings();
+                }
+            }
         });
+    }
+
+    // Initialize settings panel
+    initializeSettings() {
+        // Set current values in dropdowns
+        const traditionSelect = document.getElementById('traditionSelect');
+        const languageSelect = document.getElementById('languageSelect');
+        const calendarSelect = document.getElementById('calendarSelect');
+
+        if (traditionSelect && typeof getCurrentTradition === 'function') {
+            traditionSelect.value = getCurrentTradition();
+        }
+
+        if (languageSelect && typeof getCurrentLocale === 'function') {
+            languageSelect.value = getCurrentLocale();
+        }
+
+        if (calendarSelect && typeof getCurrentCalendar === 'function') {
+            calendarSelect.value = getCurrentCalendar();
+        }
+    }
+
+    // Get localized date for tradition
+    getLocalizedDate() {
+        if (typeof getTraditionSpecificDate === 'function') {
+            return getTraditionSpecificDate();
+        }
+        return new Date();
+    }
+
+    // Update content based on tradition
+    updateTraditionContent() {
+        if (typeof updateTraditionContent === 'function') {
+            updateTraditionContent();
+        }
+        
+        // Reload daily content with new tradition
+        this.loadDailyContent();
+    }
+}
+
+// Global functions for settings panel
+function toggleSettings() {
+    const settingsPanel = document.getElementById('settingsPanel');
+    if (settingsPanel) {
+        settingsPanel.classList.toggle('active');
+    }
+}
+
+function changeTradition(tradition) {
+    if (typeof setTradition === 'function') {
+        setTradition(tradition);
+        
+        // Update app content
+        if (window.orthodoxApp) {
+            window.orthodoxApp.updateTraditionContent();
+        }
+    }
+}
+
+function changeLanguage(language) {
+    if (typeof setLocale === 'function') {
+        setLocale(language);
+        
+        // Update page language immediately
+        if (typeof updatePageLanguage === 'function') {
+            updatePageLanguage();
+        }
+    }
+}
+
+function changeCalendar(calendar) {
+    if (typeof setCalendar === 'function') {
+        setCalendar(calendar);
+        
+        // Reload content with new calendar
+        if (window.orthodoxApp) {
+            window.orthodoxApp.loadDailyContent();
+        }
     }
 }
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new OrthodoxDailyApp();
+    window.orthodoxApp = new OrthodoxDailyApp();
 });
 
 // Handle offline/online status
