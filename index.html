@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css?v=1.1.1">
+    <link rel="stylesheet" href="styles.css?v=1.2.0">
     
     <!-- iOS specific meta tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,19 +43,25 @@
                     <path d="M9 22L23 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
             </div>
-            <h1 class="app-title">Orthodox Daily</h1>
+            <h1 class="app-title" data-translate="appTitle">Orthodox Daily</h1>
+            <button class="settings-btn" onclick="toggleSettings()" title="Settings">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V6a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V12a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </button>
         </header>
 
         <!-- Prayer Section -->
         <section class="prayer-section">
             <div class="prayer-prompt">
-                <h2>Have you prayed today?</h2>
+                <h2 data-translate="prayerTracker">Have you prayed today?</h2>
                 <div class="prayer-actions">
                     <button class="prayer-btn" id="prayedBtn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20 6L9 17l-5-5"/>
                         </svg>
-                        Yes, I have prayed
+                        <span data-translate="markComplete">Yes, I have prayed</span>
                     </button>
                 </div>
             </div>
@@ -63,7 +69,7 @@
 
         <!-- Daily Quote -->
         <section class="quote-section">
-            <h3 class="section-title">Daily Wisdom</h3>
+            <h3 class="section-title" data-translate="dailyWisdom">Daily Wisdom</h3>
             <div class="quote-card" id="quoteCard">
                 <div class="quote-icon">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -78,9 +84,45 @@
             </div>
         </section>
 
+        <!-- Settings Panel -->
+        <div class="settings-panel" id="settingsPanel">
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h3 data-translate="settings">Settings</h3>
+                    <button class="close-settings" onclick="toggleSettings()">×</button>
+                </div>
+                
+                <div class="settings-group">
+                    <label data-translate="tradition">Orthodox Tradition:</label>
+                    <select id="traditionSelect" onchange="changeTradition(this.value)">
+                        <option value="general" data-translate="generalOrthodox">General Orthodox</option>
+                        <option value="rocor" data-translate="rocorTradition">ROCOR (Russian Orthodox)</option>
+                        <option value="greek" data-translate="greekTradition">Greek Orthodox</option>
+                    </select>
+                </div>
+                
+                <div class="settings-group">
+                    <label data-translate="language">Language:</label>
+                    <select id="languageSelect" onchange="changeLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                        <option value="el">Ελληνικά</option>
+                    </select>
+                </div>
+                
+                <div class="settings-group">
+                    <label data-translate="calendar">Calendar Type:</label>
+                    <select id="calendarSelect" onchange="changeCalendar(this.value)">
+                        <option value="gregorian" data-translate="gregorianCalendar">Gregorian Calendar (New Calendar)</option>
+                        <option value="julian" data-translate="julianCalendar">Julian Calendar (Old Calendar)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <!-- Fasting Guidelines -->
         <section class="fasting-section">
-            <h3 class="section-title">Today's Fasting</h3>
+            <h3 class="section-title" data-translate="todaysFasting">Today's Fasting</h3>
             <div class="fasting-card" id="fastingCard">
                 <div class="fasting-icon">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -95,7 +137,7 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M20 6L9 17l-5-5"/>
                             </svg>
-                            Yes, I will fast today
+                            <span data-translate="commitToFast">Yes, I will fast today</span>
                         </button>
                     </div>
                 </div>
@@ -104,7 +146,7 @@
 
         <!-- Saint of the Day -->
         <section class="saint-section">
-            <h3 class="section-title">Saint of the Day</h3>
+            <h3 class="section-title" data-translate="saintOfTheDay">Saint of the Day</h3>
             <div class="saint-card" id="saintCard">
                 <div class="saint-icon">
                     <svg width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -165,6 +207,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="data/localization.js"></script>
     <script src="data/saints.js"></script>
     <script src="data/fasting.js"></script>
     <script src="data/quotes.js"></script>
